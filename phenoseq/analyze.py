@@ -208,7 +208,10 @@ def read_genbank_annots(gbfile, fastafile=None, featureType='CDS',
                                                         orientation=3))
     i = 0
     for s in gbseqs:
-        seqID = genomeIndex[s.id].id # find the right seq and get its actual ID
+        try:
+            seqID = genomeIndex[s.id].id # find the right seq and get its actual ID
+        except KeyError:
+            seqID = genome.keys()[0]
         for f in s.features:
             if f.type == featureType:
                 try:
@@ -668,7 +671,7 @@ def analyze_cmd(gbfile, tagFiles, **kwargs):
 def main():
     # entry point for phenoseq_analyze command defined in setup.py
     options, tagFiles = parse_args()
-    analyze_cmd(options.gbfile, tagFiles, fastafile=options.fastafile,
+    analyze_cmd(options.gbfile, tagFiles, fastafile=options.fastafile, 
                 geneQualifier=options.geneQualifier)
 
 if __name__ == '__main__':
