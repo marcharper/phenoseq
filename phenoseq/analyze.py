@@ -389,6 +389,9 @@ def is_nonsyn(snp):
     codonStart = geneSNP.start - ipos
     codon = str(geneSNP.path.sequence[codonStart:codonStart + 3])
     b = snp.alt # substitution letter
+    # Do we have an insertion or deletion? If so, assume nonsyn
+    if len(b) != 1:
+        return True
     if geneSNP.sequence.orientation < 0: # must complement
         b = rcDict[b.upper()]
     codonAlt = codon[:ipos] + b + codon[ipos + 1:]
