@@ -125,7 +125,7 @@ def read_vcf(path, vcffields=('CHROM', 'POS', 'ID', 'REF', 'ALT', 'QUAL',
 # snp false positive filtering functions
 
 def filter_snps(snps,
-                filterExpr='snp.af1 <= 0.5 and getattr(snp, "pv4", (0.,))[0] >= 0.01 and snp.qual > 90'):
+                filterExpr='snp.af1 <= 0.5 and getattr(snp, "pv4", (0.,))[0] >= 0.01 and snp.qual > 50'):
     'filter SNPs using attribute expressions'
     for snp in snps:
         if eval(filterExpr):
